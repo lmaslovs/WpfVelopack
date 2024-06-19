@@ -58,6 +58,7 @@ namespace WpfVelopack.Wpf
         {
             // download new version
             NewVersion.Text = "Downloading!";
+            Update.IsEnabled = false;
             if (updateInfo != null)
             {
                 await mgr.DownloadUpdatesAsync(updateInfo);
