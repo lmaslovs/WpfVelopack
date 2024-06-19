@@ -25,7 +25,8 @@ namespace WpfVelopack.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            var source = new GithubSource("https://github.com/lmaslovs/WpfVelopack/releases/latest/download", "", false);
+            var token = "";
+            var source = new GithubSource("https://github.com/lmaslovs/WpfVelopack", token, false);
             mgr = new UpdateManager(source);
         }
 
