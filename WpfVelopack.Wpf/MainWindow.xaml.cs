@@ -11,6 +11,7 @@ using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Velopack;
+using Velopack.Sources;
 
 namespace WpfVelopack.Wpf
 {
@@ -24,7 +25,8 @@ namespace WpfVelopack.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            mgr = new UpdateManager("https://github.com/lmaslovs/WpfVelopack/releases/latest/download");
+            var source = new GithubSource("https://github.com/lmaslovs/WpfVelopack/releases/latest/download", "", false);
+            mgr = new UpdateManager(source);
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)

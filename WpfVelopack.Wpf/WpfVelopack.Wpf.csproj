@@ -12,8 +12,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\spinner.gif" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Assets\apple.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\spinner.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
