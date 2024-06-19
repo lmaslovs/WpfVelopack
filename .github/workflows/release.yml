@@ -30,7 +30,7 @@ jobs:
         run: vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
 
       - name: Pack
-        run: vpk pack -u MyUniqueIdentifier -packId WpfVelopack -v 1.0.0 -p publish -mainExe WpfVelopack.Wpf.exe -packTitle WpfVelopack -icon .\WpfVelopack.Wpf\Assets\apple.ico
+        run: vpk pack --packId WpfVelopack --packVersion 1.0.0 --packDir publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
 
       - name: Create Velopack Release
-        run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack -publish -releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" -tag v1.0.0
+        run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack 1.0.0" --tag v1.0.0 --token ${{ secrets.GITHUB_TOKEN }}
