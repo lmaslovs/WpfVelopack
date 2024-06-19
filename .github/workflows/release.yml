@@ -31,6 +31,6 @@ jobs:
       - name: Create Velopack Release
               run: |
                 dotnet tool install -g vpk
-                vpk download github --repoUrl https://github.com/Myname/Myrepo
-                vpk pack -u MyUniqueIdentifier -v ${{ steps.get-version.outputs.version }} -p publish
-                vpk upload github --repoUrl https://github.com/Myname/Myrepo --publish --releaseName "MyProject ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
+                vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
+                vpk pack -u MyUniqueIdentifier --packId WpfVelopack -v ${{ steps.get-version.outputs.version }} -p publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
+                vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
