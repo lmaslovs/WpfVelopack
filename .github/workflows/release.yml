@@ -26,21 +26,16 @@ jobs:
           dotnet-version: "8.0.x" # Specify the version of .NET you're using
 
       - name: Publish .NET project
-          run: dotnet publish -c Release --self-contained -r win-x64 -o .\publish
-        
+        run: dotnet publish -c Release --self-contained -r win-x64 -o .\publish
+
       - name: Install
-          run: dotnet tool install -g vpk
+        run: dotnet tool install -g vpk
 
       - name: Download
-          run: vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
+        run: vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
 
       - name: Pack
-          run: vpk pack -u MyUniqueIdentifier --packId WpfVelopack -v ${{ steps.get-version.outputs.version }} -p publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
-                
+        run: vpk pack -u MyUniqueIdentifier --packId WpfVelopack -v ${{ steps.get-version.outputs.version }} -p publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
 
       - name: Create Velopack Release
-          run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
-
-
-                
-                
+        run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
