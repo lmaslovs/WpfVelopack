@@ -24,7 +24,8 @@ namespace WpfVelopack.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            mgr = new UpdateManager("https://github.com/lmaslovs/WpfVelopack/releases/latest/download/");
+            
+            mgr = new UpdateManager("https://api.github.com/repos/lmaslovs/WpfVelopack/contents/output");
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
