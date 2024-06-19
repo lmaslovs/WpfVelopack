@@ -1,0 +1,16 @@
+﻿<Window x:Class="WpfVelopack.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfVelopack.Wpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" TextElement.FontSize="20">
+            <TextBlock x:Name="CurrentVersion" Text="Loading..."/>
+            <TextBlock x:Name="NewVersion" />
+            <Button x:Name="Update" Content="Update" Visibility="Hidden" Click="Update_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
