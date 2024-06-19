@@ -32,23 +32,19 @@ jobs:
       - name: Package with Velopack
         run: vpk pack --packId WpfVelopack --packVersion 1.0.0 --packDir publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --outputDir .\output --icon .\WpfVelopack.Wpf\Assets\apple.ico
 
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
+       - name: Install GitHub CLI
+        run: |
+          choco install gh
+
+      - name: Upload Release Assets
+        run: |
+          gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
+          $files = Get-ChildItem -Path .\output
+          foreach ($file in $files) {
+            echo "Uploading $file"
+            gh release upload ${{ steps.create_release.outputs.upload_url }} "$file.FullName" --clobber
+          }
+        shell: pwsh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: Release
-          release_name: Release
-          draft: false
-          prerelease: false
-          
-        - name: Upload Release Assets
-                run: |
-                  $files = Get-ChildItem -Path .\output
-                  foreach ($file in $files) {
-                    echo "Uploading $file"
-                    gh release upload ${{ steps.create_release.outputs.upload_url }} "$file.FullName" --clobber
-                  }
-                env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
