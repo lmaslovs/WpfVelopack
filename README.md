@@ -1,2 +1,2 @@
 # WpfVelopack
-Velopack + wpf test application
+Velopack + wpf test application + github actions
