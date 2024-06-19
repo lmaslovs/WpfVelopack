@@ -15,11 +15,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Get Version from Project File
-        id: get-version
-        shell: bash
-        run: echo "version=$(grep -oE '<Version>[^<]+' WpfVelopack.Wpf/WpfVelopack.Wpf.csproj | sed 's/<Version>//')" >> $GITHUB_OUTPUT
-
       - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
@@ -35,7 +30,7 @@ jobs:
         run: vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
 
       - name: Pack
-        run: vpk pack -u MyUniqueIdentifier --packId WpfVelopack -v ${{ steps.get-version.outputs.version }} -p publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
+        run: vpk pack -u MyUniqueIdentifier --packId WpfVelopack -v 1.0.0 -p publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
 
       - name: Create Velopack Release
-        run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }}
+        run: vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v1.0.0
