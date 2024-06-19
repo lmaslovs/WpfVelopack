@@ -38,16 +38,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v1.0.0
-          release_name: Release v1.0.0
+          tag_name: Release
+          release_name: Release
           draft: false
           prerelease: false
-
-       - name: Upload Release Assets
-          run: |
-            for file in output/*; do
-              gh release upload ${{ steps.create_release.outputs.upload_url }} $file --repo ${{ github.repository }} --clobber
-            done
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            GITHUB_REPOSITORY: ${{ github.repository }}
+          
+        - name: Upload Release Assets
+                run: |
+                  $files = Get-ChildItem -Path .\output
+                  foreach ($file in $files) {
+                    echo "Uploading $file"
+                    gh release upload ${{ steps.create_release.outputs.upload_url }} "$file.FullName" --clobber
+                  }
+                env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
