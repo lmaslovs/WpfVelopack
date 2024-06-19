@@ -24,8 +24,7 @@ namespace WpfVelopack.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            
-            mgr = new UpdateManager("https://api.github.com/repos/lmaslovs/WpfVelopack/contents/output");
+            mgr = new UpdateManager("https://github.com/lmaslovs/WpfVelopack/releases/latest/download");
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -59,6 +58,7 @@ namespace WpfVelopack.Wpf
         {
             // download new version
             NewVersion.Text = "Downloading!";
+            Update.IsEnabled = false;
             if (updateInfo != null)
             {
                 await mgr.DownloadUpdatesAsync(updateInfo);

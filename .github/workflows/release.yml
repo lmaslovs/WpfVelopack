@@ -1,0 +1,39 @@
+name: Build and Package WPF Application
+
+on:
+  push:
+    branches:
+      - release
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Get Version from Project File
+        id: get-version
+        shell: bash
+        run: echo "version=$(grep -oE '<Version>[^<]+' WpfVelopack.Wpf/WpfVelopack.Wpf.csproj | sed 's/<Version>//')" >> $GITHUB_OUTPUT
+
+      - name: Echo Version
+        run: echo "The version is ${{ steps.get-version.outputs.version }}"
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "8.0.x" # Specify the version of .NET you're using
+
+      - name: Publish .NET project
+        run: dotnet publish -c Release --self-contained -r win-x64 -o .\publish
+
+      - name: Create Velopack Release
+        run: |
+          dotnet tool install -g vpk
+          vpk download github --repoUrl https://github.com/lmaslovs/WpfVelopack
+          vpk pack --packId WpfVelopack --packVersion ${{ steps.get-version.outputs.version }} --packDir publish --mainExe WpfVelopack.Wpf.exe --packTitle WpfVelopack --icon .\WpfVelopack.Wpf\Assets\apple.ico
+          vpk upload github --repoUrl https://github.com/lmaslovs/WpfVelopack --publish --releaseName "WpfVelopack ${{ steps.get-version.outputs.version }}" --tag v${{ steps.get-version.outputs.version }} --token ${{ secrets.GITHUB_TOKEN }}

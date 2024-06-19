@@ -8,6 +8,7 @@
     <UseWPF>true</UseWPF>
 	<StartupObject>WpfVelopack.Wpf.Program</StartupObject>
 	<ApplicationIcon>Assets\apple.ico</ApplicationIcon>
+	<Version>1.0.3</Version>
   </PropertyGroup>
 
   <ItemGroup>
